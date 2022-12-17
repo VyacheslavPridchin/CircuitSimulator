@@ -44,24 +44,18 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
     {
         if (locked) return;
 
-        Vector2 newPosition = myRectTransform.anchoredPosition + eventData.delta / transform.parent.lossyScale;
+        Vector2 newPosition = myRectTransform.anchoredPosition + eventData.delta / myRectTransform.lossyScale * myRectTransform.localScale;
         myRectTransform.anchoredPosition = newPosition;
     }
 
     private Transform prevParent;
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (locked) return;
 
         lastAnchoredPosition = myRectTransform.anchoredPosition;
-
         prevParent = myRectTransform.parent;
         myRectTransform.SetParent(GlobalLinksStorage.Instance.CanvasRectTransform);
-
-        //Vector2 newPosition = myRectTransform.anchoredPosition;
-        //newPosition.y += 50f;
-        //myRectTransform.anchoredPosition = newPosition;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -78,7 +72,6 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
             if (hit.collider.tag == "Workspace")
             {
                 lastAnchoredPosition = myRectTransform.position;
-                //if (transform.parent.tag != "Workspace") Destroy(transform.parent.gameObject);
                 myRectTransform.SetParent(GlobalLinksStorage.Instance.WorkspaceArea);
                 myRectTransform.localScale = Vector3.one;
 
@@ -91,7 +84,6 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
             if (hit.collider.tag == "Pocket")
             {
                 lastAnchoredPosition = myRectTransform.position;
-                //if (transform.parent.tag != "Workspace") Destroy(transform.parent.gameObject);
                 myRectTransform.SetParent(hit.collider.transform);
                 myRectTransform.localScale = Vector3.one;
                 myRectTransform.localPosition = Vector3.zero;
@@ -105,6 +97,7 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
             {
                 if (myRectTransform.parent != GlobalLinksStorage.Instance.WorkspaceArea)
                     myRectTransform.SetParent(prevParent);
+
                 locked = true;
                 myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { locked = false; });
             }
@@ -113,6 +106,7 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
         {
             if (myRectTransform.parent != GlobalLinksStorage.Instance.WorkspaceArea)
                 myRectTransform.SetParent(prevParent);
+
             locked = true;
             myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { locked = false; });
         }
