@@ -1,6 +1,7 @@
-﻿/// Credit Alastair Aitchison
+﻿
+using System.Collections.Generic;
+/// Credit Alastair Aitchison
 /// Sourced from - https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/issues/123/uilinerenderer-issues-with-specifying
-
 namespace UnityEngine.UI.Extensions
 {
     [AddComponentMenu("UI/Extensions/UI Line Connector")]
@@ -10,11 +11,11 @@ namespace UnityEngine.UI.Extensions
     {
 
         // The elements between which line segments should be drawn
-        public RectTransform[] transforms;
+        public List<RectTransform> transforms;
         private Vector3[] previousPositions;
         private RectTransform canvas;
         private RectTransform rt;
-        private UILineRenderer lr;
+        public UILineRenderer lr { get; private set; }
 
         private void Awake()
         {
@@ -26,15 +27,18 @@ namespace UnityEngine.UI.Extensions
         // Update is called once per frame
         void Update()
         {
-            if (transforms == null || transforms.Length < 1)
+            if (transforms == null || transforms.Count < 1)
             {
+                previousPositions = null;
+
+                lr.Points = new Vector2[1] { Vector2.zero };
                 return;
             }
             //Performance check to only redraw when the child transforms move
-            if (previousPositions != null && previousPositions.Length == transforms.Length)
+            if (previousPositions != null && previousPositions.Length == transforms.Count)
             {
                 bool updateLine = false;
-                for (int i = 0; i < transforms.Length; i++)
+                for (int i = 0; i < transforms.Count; i++)
                 {
                     if (!updateLine && previousPositions[i] != transforms[i].position)
                     {
@@ -49,24 +53,24 @@ namespace UnityEngine.UI.Extensions
             Vector2 canvasPivot = canvas.pivot;
 
             // Set up some arrays of coordinates in various reference systems
-            Vector3[] worldSpaces = new Vector3[transforms.Length];
-            Vector3[] canvasSpaces = new Vector3[transforms.Length];
-            Vector2[] points = new Vector2[transforms.Length];
+            Vector3[] worldSpaces = new Vector3[transforms.Count];
+            Vector3[] canvasSpaces = new Vector3[transforms.Count];
+            Vector2[] points = new Vector2[transforms.Count];
 
             // First, convert the pivot to worldspace
-            for (int i = 0; i < transforms.Length; i++)
+            for (int i = 0; i < transforms.Count; i++)
             {
                 worldSpaces[i] = transforms[i].TransformPoint(thisPivot);
             }
 
             // Then, convert to canvas space
-            for (int i = 0; i < transforms.Length; i++)
+            for (int i = 0; i < transforms.Count; i++)
             {
                 canvasSpaces[i] = canvas.InverseTransformPoint(worldSpaces[i]);
             }
 
             // Calculate delta from the canvas pivot point
-            for (int i = 0; i < transforms.Length; i++)
+            for (int i = 0; i < transforms.Count; i++)
             {
                 points[i] = new Vector2(canvasSpaces[i].x, canvasSpaces[i].y);
             }
@@ -76,8 +80,8 @@ namespace UnityEngine.UI.Extensions
             lr.RelativeSize = false;
             lr.drivenExternally = true;
 
-            previousPositions = new Vector3[transforms.Length];
-            for (int i = 0; i < transforms.Length; i++)
+            previousPositions = new Vector3[transforms.Count];
+            for (int i = 0; i < transforms.Count; i++)
             {
                 previousPositions[i] = transforms[i].position;
             }
