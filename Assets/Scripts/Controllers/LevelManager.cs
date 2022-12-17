@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static int levelsCount = 3;
+    public static int levelsCount = 4;
 
     public void ReloadLevel()
     {

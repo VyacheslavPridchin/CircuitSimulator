@@ -72,6 +72,12 @@ public class CircuitController : MonoBehaviour
 
     bool GetElectricitySource(Point point, out ElectricitySource electricitySource, bool isStart = false)
     {
+        if (!point.ElectricalComponent.ComponentEnabled)
+        {
+            electricitySource = null;
+            return false;
+        }
+
         if (!isStart)
             if (point.ElectricalComponent.GetType() == typeof(ElectricitySource))
             {

@@ -8,6 +8,9 @@ public class ElectricalComponent : MonoBehaviour
     [field: SerializeField]
     public List<Point> Points { get; private set; } = new List<Point>();
 
+    [field: SerializeField]
+    public bool ComponentEnabled { get; set; } = true;
+
     private UnityEvent ActivateComponent = new UnityEvent();
 
     private void Awake()

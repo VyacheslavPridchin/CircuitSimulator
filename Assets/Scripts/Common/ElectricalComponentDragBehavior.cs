@@ -56,11 +56,9 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
 
         lastAnchoredPosition = myRectTransform.anchoredPosition;
 
-        if (myRectTransform.parent != GlobalLinksStorage.Instance.WorkspaceArea)
-        {
-            prevParent = myRectTransform.parent;
-            myRectTransform.SetParent(GlobalLinksStorage.Instance.CanvasRectTransform);
-        }
+        prevParent = myRectTransform.parent;
+        myRectTransform.SetParent(GlobalLinksStorage.Instance.CanvasRectTransform);
+
         //Vector2 newPosition = myRectTransform.anchoredPosition;
         //newPosition.y += 50f;
         //myRectTransform.anchoredPosition = newPosition;
@@ -70,9 +68,13 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
     {
         if (locked) return;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 1);
+        LayerMask mask = LayerMask.GetMask("ActiveZone");
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 1, mask);
         if (hit.collider != null)
         {
+            Debug.Log(hit.collider.tag);
+
             if (hit.collider.tag == "Workspace")
             {
                 lastAnchoredPosition = myRectTransform.position;
@@ -84,6 +86,20 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
                     go.SetActive(true);
 
                 Outline.enabled = true;
+            }
+            else
+            if (hit.collider.tag == "Pocket")
+            {
+                lastAnchoredPosition = myRectTransform.position;
+                //if (transform.parent.tag != "Workspace") Destroy(transform.parent.gameObject);
+                myRectTransform.SetParent(hit.collider.transform);
+                myRectTransform.localScale = Vector3.one;
+                myRectTransform.localPosition = Vector3.zero;
+
+                foreach (GameObject go in HideElements)
+                    go.SetActive(false);
+
+                Outline.enabled = false;
             }
             else
             {

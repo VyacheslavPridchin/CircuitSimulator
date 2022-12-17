@@ -17,7 +17,8 @@ public class GameController : MonoBehaviour
 
     public UnityEvent<bool> ChangeGameState { get; private set; } = new UnityEvent<bool>();
 
-    public bool RequiredElectricalComponentOrderEqual { 
+    public bool RequiredElectricalComponentOrderEqual
+    {
         get => RequiredElectricalComponentOrder.SequenceEqual(CircuitController.Instance.CurrentElectricalComponentOrder);
     }
 

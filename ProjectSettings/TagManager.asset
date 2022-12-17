@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Workspace
   - Point
+  - Pocket
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Points
   - Water
   - UI
-  - 
+  - ActiveZone
   - 
   - 
   - 

@@ -3671,7 +3671,7 @@ GameObject:
   - component: {fileID: 1757299697}
   - component: {fileID: 1757299698}
   - component: {fileID: 1757299699}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Workspace
   m_TagString: Workspace
   m_Icon: {fileID: 0}
@@ -3935,6 +3935,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1440062544}
     m_Modifications:
+    - target: {fileID: 549234919782633638, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549234919782633638, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549234919782633638, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 47.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 549234919782633638, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 864352658669195801, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4049,7 +4065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7920022533107104720, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 35
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 7920022533107104720, guid: 1ead98917d22a944881b2cc666a9120c, type: 3}
       propertyPath: m_AnchoredPosition.y
