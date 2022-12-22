@@ -69,15 +69,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1348731564388335706, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1348731564388335706, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1348731564388335706, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1348731564388335706, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -203,6 +203,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7350883599292494840, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
+      propertyPath: Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8161459557481892996, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: <ComponentEnabled>k__BackingField
       value: 0
@@ -264,10 +268,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047e4231d3580294282191def7c2fe34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  electricalComponentDragBehavior: {fileID: 7198166283537080401}
   electricalComponent: {fileID: 8491960061350991628}
   switchOn: {fileID: 21300000, guid: 6031521f318e52642b23d02f34a37f08, type: 3}
   switchOff: {fileID: 21300000, guid: e013c66bbc9329e4090060fce40f8ced, type: 3}
   icon: {fileID: 826802495090858034}
+--- !u!114 &7198166283537080401 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7457911023725870041, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
+  m_PrefabInstance: {fileID: 331811268036762504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb91c347f6612c4f99ed230acb2f3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8491960061350991628 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8161459557481892996, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}

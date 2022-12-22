@@ -24,7 +24,7 @@ public class EngineBehaviour : MonoBehaviour
         //GameController.Instance.ChangeGameState.AddListener(ChangeBehaviour);
     }
 
-    public void ChangeBehaviour(bool activate)
+    public void ChangeBehaviour(bool activate, bool checkWithButton)
     {
         activateUp = false;
         activateDown = false;
@@ -38,8 +38,11 @@ public class EngineBehaviour : MonoBehaviour
 
         if (!GameController.Instance.RequiredElectricalComponentOrderEqual) activate = false;
 
-        if (activate && activateUpPoint.PointActivated) activateUp = true;
-        if (activate && activateDownPoint.PointActivated) activateDown = true;
+        if (checkWithButton)
+        {
+            if (activate && activateUpPoint.PointActivated) activateUp = true;
+            if (activate && activateDownPoint.PointActivated) activateDown = true;
+        }
     }
 
     private void FixedUpdate()

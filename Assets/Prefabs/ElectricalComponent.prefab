@@ -528,6 +528,7 @@ GameObject:
   - component: {fileID: 7219162547488876468}
   - component: {fileID: 8161459557481892996}
   - component: {fileID: 8920792405740345892}
+  - component: {fileID: 7350883599292494840}
   m_Layer: 2
   m_Name: ElectricalComponent
   m_TagString: Untagged
@@ -583,6 +584,7 @@ MonoBehaviour:
   - {fileID: 9213045613525554847}
   - {fileID: 8980162580973415212}
   - {fileID: 736649507058277888}
+  <ComponentEnabled>k__BackingField: 1
 --- !u!114 &8920792405740345892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,6 +615,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 6
+--- !u!114 &7350883599292494840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058759484235453547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21c021cd945b1d48a66cb6a2a9d77cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electricalComponentDragBehavior: {fileID: 7457911023725870041}
+  Icon: {fileID: 5734512537829300067}
 --- !u!1 &4507545634253173592
 GameObject:
   m_ObjectHideFlags: 0

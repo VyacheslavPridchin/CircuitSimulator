@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class SwitchBehaviours : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
+    private ElectricalComponentDragBehavior electricalComponentDragBehavior;
+    [SerializeField]
     private ElectricalComponent electricalComponent;
 
     [SerializeField]
@@ -17,6 +19,8 @@ public class SwitchBehaviours : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (electricalComponentDragBehavior.Locked) return;
+
         electricalComponent.ComponentEnabled = !electricalComponent.ComponentEnabled;
 
         if (electricalComponent.ComponentEnabled)

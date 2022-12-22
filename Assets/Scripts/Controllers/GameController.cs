@@ -29,13 +29,13 @@ public class GameController : MonoBehaviour
         CircuitController.Instance.CheckCercuitComplete.AddListener(OnCheckCercuitComplete);
     }
 
-    public void OnCheckCercuitComplete(bool isCercuitComplete)
+    public void OnCheckCercuitComplete(bool isCercuitComplete, bool checkWithButton)
     {
         //Invoke("CheckGameState", 0.05f);
-        CheckGameState();
+            CheckGameState(checkWithButton);
     }
 
-    private void CheckGameState()
+    private void CheckGameState(bool checkWithButton)
     {
         bool LevelCompleted = true;
 
@@ -49,13 +49,19 @@ public class GameController : MonoBehaviour
 
         if (LevelCompleted)
         {
-            Debug.Log("U WIN!");
-            GlobalLinksStorage.Instance.NextLevelButton.interactable = true;
-            GlobalLinksStorage.Instance.UILineRenderer.color = new Color32(43, 192, 30, 255);
+            if (checkWithButton)
+            {
+                ChangeGameState?.Invoke(LevelCompleted);
+                Debug.Log("U WIN!");
+                GlobalLinksStorage.Instance.NextLevelButton.interactable = true;
+                GlobalLinksStorage.Instance.UILineRenderer.color = new Color32(43, 192, 30, 255);
+            }
         }
         else
+        {
+            ChangeGameState?.Invoke(LevelCompleted);
             GlobalLinksStorage.Instance.UILineRenderer.color = new Color32(255, 122, 0, 255);
+        }
 
-        ChangeGameState?.Invoke(LevelCompleted);
     }
 }

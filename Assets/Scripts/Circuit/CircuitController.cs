@@ -13,7 +13,7 @@ public class CircuitController : MonoBehaviour
 
     public UnityEvent StartCheckCercuit { get; private set; } = new UnityEvent();
 
-    public UnityEvent<bool> CheckCercuitComplete { get; private set; } = new UnityEvent<bool>();
+    public UnityEvent<bool, bool> CheckCercuitComplete { get; private set; } = new UnityEvent<bool, bool>();
 
     public bool IsCercuitComplete { get; private set; } = false;
 
@@ -25,10 +25,21 @@ public class CircuitController : MonoBehaviour
 
     public void LateCheckCercuitContinuity()
     {
-        Invoke("CheckCercuitContinuity", 0.05f);
+        StartCoroutine(CheckCercuitContinuityWithDelay(false));
     }
 
-    private void CheckCercuitContinuity()
+    public void ButtonPressLateCheckCercuitContinuity()
+    {
+        StartCoroutine(CheckCercuitContinuityWithDelay(true));
+    }
+
+    IEnumerator CheckCercuitContinuityWithDelay(bool checkWithButton = false)
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        CheckCercuitContinuity(checkWithButton);
+    }
+
+    public void CheckCercuitContinuity(bool checkWithButton = false)
     {
         CurrentElectricalComponentOrder.Clear();
 
@@ -67,7 +78,7 @@ public class CircuitController : MonoBehaviour
 
         CurrentElectricalComponentOrder.Reverse();
 
-        CheckCercuitComplete?.Invoke(IsCercuitComplete);
+        CheckCercuitComplete?.Invoke(IsCercuitComplete, checkWithButton);
     }
 
     bool GetElectricitySource(Point point, out ElectricitySource electricitySource, bool isStart = false)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
+public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform myRectTransform;
@@ -13,7 +13,8 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
     [SerializeField]
     private Image Outline;
     private Vector2 lastAnchoredPosition;
-    private bool locked = false;
+    private bool lockedWithAnimate  = false;
+    public bool Locked { get; private set; } = false;
 
     private void Start()
     {
@@ -42,16 +43,31 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (locked) return;
+        if (lockedWithAnimate) return;
 
         Vector2 newPosition = myRectTransform.anchoredPosition + eventData.delta / myRectTransform.lossyScale * myRectTransform.localScale;
         myRectTransform.anchoredPosition = newPosition;
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Locked = true;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Invoke("Unlock", 0.1f);
+    }
+
+    private void Unlock()
+    {
+        Locked = false;
+    }
+
     private Transform prevParent;
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (locked) return;
+        if (lockedWithAnimate) return;
 
         lastAnchoredPosition = myRectTransform.anchoredPosition;
         prevParent = myRectTransform.parent;
@@ -60,7 +76,7 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (locked) return;
+        if (lockedWithAnimate) return;
 
         LayerMask mask = LayerMask.GetMask("ActiveZone");
 
@@ -98,8 +114,8 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
                 if (myRectTransform.parent != GlobalLinksStorage.Instance.WorkspaceArea)
                     myRectTransform.SetParent(prevParent);
 
-                locked = true;
-                myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { locked = false; });
+                lockedWithAnimate = true;
+                myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { lockedWithAnimate = false; });
             }
         }
         else
@@ -107,8 +123,8 @@ public class ElectricalComponentDragBehavior : MonoBehaviour, IPointerUpHandler,
             if (myRectTransform.parent != GlobalLinksStorage.Instance.WorkspaceArea)
                 myRectTransform.SetParent(prevParent);
 
-            locked = true;
-            myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { locked = false; });
+            lockedWithAnimate = true;
+            myRectTransform.DOAnchorPos(lastAnchoredPosition, 0.3f).OnComplete(() => { lockedWithAnimate = false; });
         }
     }
 }

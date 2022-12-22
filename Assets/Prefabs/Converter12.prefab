@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Point
       objectReference: {fileID: 0}
+    - target: {fileID: 7350883599292494840, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
+      propertyPath: Icon
+      value: 
+      objectReference: {fileID: 2208896110841461673}
     - target: {fileID: 7457911023725870041, guid: 77339126dda70ea40a31812bb2ba1987, type: 3}
       propertyPath: HideElements.Array.size
       value: 3
